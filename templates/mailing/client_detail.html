@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Рассылка #{{ mailing.id }}</h1>
+<p><strong>Статус:</strong> {{ mailing.get_status_display }}</p>
+<p><strong>Начало:</strong> {{ mailing.start_time }}</p>
+<p><strong>Конец:</strong> {{ mailing.end_time }}</p>
+<p><strong>Сообщение:</strong> {{ mailing.message.subject }}</p>
+<p><strong>Получатели:</strong></p>
+<ul>
+  {% for client in mailing.recipients.all %}
+  <li>{{ client.full_name }} ({{ client.email }})</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'mailing:mailing_update' mailing.pk %}" class="btn btn-warning">Редактировать</a>
+<a href="{% url 'mailing:mailing_delete' mailing.pk %}" class="btn btn-danger">Удалить</a>
+<a href="{% url 'mailing:mailing_send' mailing.pk %}" class="btn btn-success">Отправить сейчас</a>
+
+<h2 class="mt-4">История попыток</h2>
+<table class="table">
+  <thead><tr><th>Время</th><th>Статус</th><th>Ответ</th></tr></thead>
+  <tbody>
+    {% for attempt in mailing.mailingattempt_set.all %}
+    <tr><td>{{ attempt.attempt_time }}</td><td>{{ attempt.get_status_display }}</td><td>{{ attempt.server_response }}</td></tr>
+    {% empty %}<tr><td colspan="3">Нет попыток</td></tr>{% endfor %}
+  </tbody>
+</table>
+{% endblock %}

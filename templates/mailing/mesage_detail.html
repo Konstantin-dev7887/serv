@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ message.subject }}</h1>
+<p><strong>Тема:</strong> {{ message.subject }}</p>
+<p><strong>Тело письма:</strong></p>
+<pre>{{ message.body }}</pre>
+
+<a href="{% url 'mailing:message_update' message.pk %}" class="btn btn-warning">Редактировать</a>
+<a href="{% url 'mailing:message_delete' message.pk %}" class="btn btn-danger">Удалить</a>
+<a href="{% url 'mailing:message_list' %}" class="btn btn-secondary">Назад к списку</a>
+{% endblock %}

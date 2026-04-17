@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Главная</h1>
+{% if user.is_authenticated %}
+<div class="row mt-4">
+    <div class="col-md-4"><div class="card text-white bg-primary"><div class="card-header">Всего рассылок</div><div class="card-body"><h5 class="card-title display-4">{{ total_mailings }}</h5></div></div></div>
+    <div class="col-md-4"><div class="card text-white bg-success"><div class="card-header">Активных рассылок</div><div class="card-body"><h5 class="card-title display-4">{{ active_mailings }}</h5></div></div></div>
+    <div class="col-md-4"><div class="card text-white bg-info"><div class="card-header">Уникальных клиентов</div><div class="card-body"><h5 class="card-title display-4">{{ unique_clients }}</h5></div></div></div>
+</div>
+{% else %}
+<p>Добро пожаловать! <a href="{% url 'users:login' %}">Войдите</a> или <a href="{% url 'users:register' %}">зарегистрируйтесь</a>.</p>
+{% endif %}
+{% endblock %}
