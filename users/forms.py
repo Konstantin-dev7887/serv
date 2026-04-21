@@ -1,14 +1,17 @@
-from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+
 from .models import User
+
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('email', 'phone', 'country', 'avatar')
+        fields = ("email", "phone", "country", "avatar")
+
 
 class ProfileUpdateForm(UserChangeForm):
     password = None
+
     class Meta:
         model = User
-        fields = ('email', 'phone', 'country', 'avatar')
+        fields = ("email", "phone", "country", "avatar")
